@@ -1,5 +1,11 @@
 def valid_move(board, orientation, row, col):
-    if orientation not in {"H", "V"}:
+    if board is None or orientation not in {"H", "V"}:
+        return False
+
+    if not isinstance(row, int) or not isinstance(col, int):
+        return False
+
+    if board.is_complete():
         return False
 
     if orientation == "H":
@@ -17,4 +23,6 @@ def valid_move(board, orientation, row, col):
 
 
 def completed_boxes(board, before):
-    return len(board.completed - before)
+    if board is None or before is None:
+        return 0
+    return len(board.completed - set(before))
